@@ -9,7 +9,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "User"
-    id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     username = Column(String(120), nullable=False)
     firstname = Column(String(120), nullable=False)
     lastname = Column(String(120), nullable=False)
@@ -17,7 +17,7 @@ class User(Base):
     
 class Comment(Base):
     __tablename__ = "Comment"
-    id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     comment_text = Column(String)
     author_id = Column(Integer, ForeignKey("User.id"))
     post_id = Column(Integer, ForeignKey("Post.id"))
@@ -26,13 +26,13 @@ class Comment(Base):
 
 class Post(Base):
     __tablename__ = "Post"
-    id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     user_id = Column(Integer, ForeignKey("User.id"), nullable=False)
     user = relationship("User", backref="post")
 
 class Media(Base):
     __tablename__ = "Media"
-    id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     type = Column(Enum)
     url = Column(String(150))
     post_id = Column(Integer, ForeignKey("Post.id"), nullable=False)
@@ -40,8 +40,8 @@ class Media(Base):
 
 class Follower(Base):
     __tablename__ = "Follower"
-    user_form_id = Column(Integer, ForeignKey("User.id"), primary_key=True, nullable=False)
-    user_to_id = Column(Integer,ForeignKey("User.id"), primary_key= True, nullable=False)
+    user_form_id = Column(Integer, ForeignKey("User.id"), primary_key=True, nullable=False, autoincrement=True)
+    user_to_id = Column(Integer,ForeignKey("User.id"), primary_key= True, nullable=False, autoincrement=True)
     user_form = relationship("User", backref="follower")
     user_to = relationship("User", backref="follower")
     
